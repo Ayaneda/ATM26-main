@@ -33,8 +33,8 @@ public class AccountTest
     [InlineData(5000, 100, 4900)]
     [InlineData(5000, 6000, 5000)] // om jag tar ut..
     [InlineData(5000, 0, 5000)]
-    [InlineData(5000, -1000, 5000)]
-    [InlineData(5000, 75, 5000)]
+    [InlineData(5000, -1000, 5000)] //Withraw with negativ will add money instead
+    [InlineData(5000, 75, 5000)]   //it shouldnt allow give coins as money(only bill)
     public void WithdrawTest(int accountBalance, int withdraw, int expectedAccountBalance)
     {
         // Setup
