@@ -19,17 +19,10 @@ public class Account
 
     public bool Withdraw(int amount)
     {
-        if(amount > 0)
+        if(amount > 0 && Balance - amount >= 0 && (amount % 100) == 0)
         {
-            if (Balance - amount >= 0 && (amount % 100) == 0)
-            {
-                Balance -= amount;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            Balance -= amount;
+            return true;
         }
         else
         {
@@ -40,7 +33,7 @@ public class Account
     
     public bool Deposit(int amount)
     {
-        if(amount > 0 && (amount % 100) == 0)
+        if(amount > 0 && (amount % 100) == 0) 
         {
             Balance += amount;
             return true;
