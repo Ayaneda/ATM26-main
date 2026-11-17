@@ -4,12 +4,12 @@ public class Account
 {
     public int Balance { get; private set; }
 
-    public Account(int initialBalance)
+    public Account(int initialBalance) 
     {
         Balance = initialBalance;
     }
 
-    public int GetBalance()
+    public int GetBalance() 
     {
         return Balance;
     }
