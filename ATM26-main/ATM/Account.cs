@@ -6,7 +6,10 @@ public class Account
 
     public Account(int initialBalance) 
     {
-        Balance = initialBalance;
+        if (initialBalance >= 0)
+        {
+            Balance = initialBalance;
+        }
     }
 
     public int GetBalance() 
@@ -16,14 +19,36 @@ public class Account
 
     public bool Withdraw(int amount)
     {
-        Balance -= amount;
-        return true;
+        if(amount > 0)
+        {
+            if (Balance - amount >= 0)
+            {
+                Balance -= amount;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+        
     }
     
     public bool Deposit(int amount)
     {
-        Balance += amount;
-        return true;
+        if(amount > 0)
+        {
+            Balance += amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
 }
