@@ -19,7 +19,6 @@ public class AtmServiceTest
     {
         // setup
         Account account = new Account(5000);
-        // given
         Card card = new Card("1234-5678", "1234", account);
         AtmService atm = new AtmService(5000);
         // when
@@ -33,7 +32,6 @@ public class AtmServiceTest
     {
         //setup
         Account account = new Account (5000);
-        //given
         Card card = new Card("1234-5678", "1234", account);
         AtmService atm = new AtmService(5000);
         atm.InsertCard(card);
@@ -43,9 +41,21 @@ public class AtmServiceTest
         //then
         Assert.False(atm.HasCardInserted);
     }
+
+    [Fact]
     public void EnterPinTest()
     {
-        
+        //setup
+        string pinTest = "2345";
+        Account account = new Account (5000);
+        Card card = new Card("1234-5678", pinTest, account);
+        AtmService atm = new AtmService(5000);
+        atm.InsertCard(card);
+        //when
+        atm.EnterPin(pinTest);
+        //then
+        Assert.True(atm.IsAuthenticated);
+
     }
     public void GetBalanceTest()
     {
