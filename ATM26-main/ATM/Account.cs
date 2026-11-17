@@ -21,7 +21,7 @@ public class Account
     {
         if(amount > 0)
         {
-            if (Balance - amount >= 0)
+            if (Balance - amount >= 0 && (amount % 100) == 0)
             {
                 Balance -= amount;
                 return true;
@@ -40,7 +40,7 @@ public class Account
     
     public bool Deposit(int amount)
     {
-        if(amount > 0)
+        if(amount > 0 && (amount % 100) == 0)
         {
             Balance += amount;
             return true;
