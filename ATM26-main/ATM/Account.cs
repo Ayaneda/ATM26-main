@@ -10,6 +10,11 @@ public class Account
         {
             Balance = initialBalance;
         }
+        else
+        {
+            initialBalance = 0;
+            Balance = initialBalance;
+        }
     }
 
     public int GetBalance() 

@@ -16,7 +16,15 @@ public class AtmServiceTest
     [Fact]
     public void InsertCardTest()
     {
-        
+        // setup
+        Account account = new Account(5000);
+        // given
+        Card card = new Card("1234-5678", "1234", account);
+        AtmService atm = new AtmService(5000);
+        // when
+        atm.InsertCard(card);
+        // then
+        Assert.True(atm.HasCardInserted);
     }
 
     public void EjectCardTest()

@@ -54,6 +54,7 @@ public class AtmService
     public bool Deposit(int amount)
     {
         EnsureAuthenticated();
+        AtmBalance += amount;
         return _currentCard!.Account.Deposit(amount);
     }
     
