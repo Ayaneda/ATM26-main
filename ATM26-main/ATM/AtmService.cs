@@ -47,8 +47,12 @@ public class AtmService
     public bool Withdraw(int amount)
     {
         EnsureAuthenticated();
-        AtmBalance -= amount;
-        return _currentCard!.Account.Withdraw(amount);
+        if (AtmBalance - amount >= 0 && _currentCard!.Account.Withdraw(amount))  //I will control that atm balance is not 0 here
+        {
+            AtmBalance -= amount;
+            return true;
+        }
+        return false;
     }
     
     public bool Deposit(int amount)

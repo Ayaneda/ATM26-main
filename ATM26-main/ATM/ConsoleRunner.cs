@@ -60,9 +60,9 @@ public static class ConsoleRunner
         Console.Write("Ange PIN: ");
         string? pin = Console.ReadLine();
 
-        bool ok = atm.EnterPin(pin ?? "");
+        bool rightPin = atm.EnterPin(pin ?? "");
 
-        if (ok)
+        if (rightPin)
         {
             Console.WriteLine("PIN korrekt.");
         }
@@ -118,7 +118,7 @@ public static class ConsoleRunner
         Console.Write("Ange belopp att ta ut: ");
         string? input = Console.ReadLine();
 
-        int amount = int.Parse(input);
+        int amount = int.Parse(input!);  //ATM use to have only numbers input.
         
         bool success = atm.Withdraw(amount);
 
@@ -126,9 +126,18 @@ public static class ConsoleRunner
         {
             Console.WriteLine("Varsågod, ta dina pengar.");
         }
+        else if (atm.AtmBalance - amount < 0)
+        {
+            Console.WriteLine($"Uttaget kunde inte genomföras. ATM har inte tillräkligt kontant. ATM saldot: {atm.AtmBalance}kr");
+        }
+        else if (amount % 100 != 0)
+        {
+            Console.WriteLine("Uttaget kunde inte genomföras. ATM kan bara lämna sedlar som minst 100kr.");
+            WithdrawFlow(atm);
+        }
         else
         {
-            Console.WriteLine("Uttaget kunde inte genomföras.");
+            Console.WriteLine("Uttaget kunde inte genomföras. Du har inte tillräkligt saldo.");
         }
     }
     
@@ -137,7 +146,7 @@ public static class ConsoleRunner
         Console.Write("Ange belopp att sätta in: ");
         string? input = Console.ReadLine();
 
-        int amount = int.Parse(input);
+        int amount = int.Parse(input!); //ATM use to have only numbers input.
 
         bool success = atm.Deposit(amount);
 

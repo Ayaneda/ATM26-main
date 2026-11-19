@@ -57,20 +57,40 @@ public class AtmServiceTest
         Assert.True(atm.IsAuthenticated);
 
     }
-    public void GetBalanceTest()
+
+    [Theory]
+    [InlineData(3000, 3000)]
+    [InlineData(1000, 1000)]
+    [InlineData(8000, 8000)]
+    [InlineData(12000, 12000)]
+    public void GetBalanceTest(int accountBalance, int expectedAccountBalance)
     {
-        
+        //setup
+        Account account = new Account (accountBalance);
+        Card card = new Card("1234-5678", "2345", account);
+        AtmService atm = new AtmService(5000);
+        atm.InsertCard(card);
+        atm.EnterPin("2345");
+        //when
+        atm.GetBalance();
+        //then
+        int actualAccountBalance = atm.GetBalance();
+        Assert.Equal(expectedAccountBalance, actualAccountBalance);
+
     }
+    /*
     public void WithdrawTest()
     {
         
     }
+    /*
     public void DepositTest()
     {
         
     }
+    /*
     public void EnsureAuthenticatedTest()
     {
         
-    }
+    }*/
 }
