@@ -72,5 +72,6 @@ public class AtmService
         {
             throw new InvalidOperationException("Ingen autentiserad session.");
         }
+        EjectCard();
     }
 }
