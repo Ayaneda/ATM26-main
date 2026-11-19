@@ -42,6 +42,7 @@ public class AccountTest
     [InlineData(5000, 0, 5000)]
     [InlineData(5000, -1000, 5000)] //Withraw with negativ will add money instead
     [InlineData(5000, 75, 5000)]   //it shouldnt allow give coins as money(only bill)
+    [InlineData(12000, 11000, 12000)] //More money than the atm have...
     public void WithdrawTest(int accountBalance, int withdraw, int expectedAccountBalance)
     {
         // Setup

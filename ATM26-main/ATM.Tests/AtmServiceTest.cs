@@ -63,7 +63,7 @@ public class AtmServiceTest
     [InlineData(1000, 1000)]
     [InlineData(8000, 8000)]
     [InlineData(12000, 12000)]
-    public void GetBalanceTest(int accountBalance, int expectedAccountBalance)
+    public void AtmGetBalanceTest(int accountBalance, int expectedAccountBalance)
     {
         //setup
         Account account = new Account (accountBalance);
@@ -78,16 +78,53 @@ public class AtmServiceTest
         Assert.Equal(expectedAccountBalance, actualAccountBalance);
 
     }
-    /*
-    public void WithdrawTest()
+    
+    [Theory]
+    [InlineData(5000, 5000, 0)]
+    [InlineData(5000, 100, 4900)]
+    [InlineData(5000, 6000, 5000)]
+    [InlineData(5000, 0, 5000)]
+    [InlineData(5000, -1000, 5000)]
+    [InlineData(5000, 75, 5000)]
+    [InlineData(12000, 11000, 12000)] //ta ut when atm doesn't have enough amount of money...
+    public void AtmWithdrawTest(int accountBalance, int withdraw, int expectedAccountBalance)
     {
-        
+        // Setup
+        Account account = new Account(accountBalance);
+        Card card = new Card("1234-5678", "1234", account);
+        AtmService atm = new AtmService(10000);
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        // When
+        atm.Withdraw(withdraw);
+        // Then
+        int actualAccountBalance = account.GetBalance();
+        Assert.Equal(expectedAccountBalance, actualAccountBalance);
     }
-    /*
-    public void DepositTest()
+    
+    
+        [Theory]
+    [InlineData(5000, 5000, 10000)]
+    [InlineData(5000, 100, 5100)]
+    [InlineData(5000, 6000, 11000)]
+    [InlineData(5000, 0, 5000)]
+    [InlineData(5000, -1000, 5000)]
+    [InlineData(5000, 75, 5000)]
+    public void AtmDepositTest(int accountBalance, int deposit, int expectedAccountBalance)
     {
-        
-    }
+        // Setup
+        Account account = new Account(accountBalance);
+        Card card = new Card("1234-5678", "1234", account);
+        AtmService atm = new AtmService(10000);
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        // When
+        atm.Deposit(deposit);
+        // Then
+        int actualAccountBalance = account.GetBalance();
+        Assert.Equal(expectedAccountBalance, actualAccountBalance);
+    }   
+    
     /*
     public void EnsureAuthenticatedTest()
     {

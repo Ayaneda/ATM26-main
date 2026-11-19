@@ -58,8 +58,12 @@ public class AtmService
     public bool Deposit(int amount)
     {
         EnsureAuthenticated();
-        AtmBalance += amount;
-        return _currentCard!.Account.Deposit(amount);
+        if (_currentCard!.Account.Deposit(amount))
+        {
+            AtmBalance += amount; //Can the money that it gets add to AtmMachine
+            return true;
+        }
+        return false;
     }
     
     public void EnsureAuthenticated()
